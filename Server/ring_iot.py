@@ -52,3 +52,19 @@ class Ring_IOT:
 
     def get_device_info():
         pass
+
+    def get_doorbell_alert(self):
+        #Will need to run in a constant loop to see if there is an alert that is triggered
+        devices = self.ring.devices()
+        for doorbell in devices['authorized_doorbots']:
+
+            # listing the last 1 events of any kind
+            for event in doorbell.history(limit=1):
+                print('ID:       %s' % event['id'])
+                print('Kind:     %s' % event['kind'])
+                print('Answered: %s' % event['answered'])
+                print('When:     %s' % event['created_at'])
+                print('--' * 50)
+
+            # get a event list only the triggered by motion
+            events = doorbell.history(kind='motion')
