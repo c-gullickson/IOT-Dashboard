@@ -20,6 +20,7 @@ def main():
     ring_useragent = config_data['ring_useragent']
 
     roku_devices = config_data['roku_devices']
+    lan = config_data['lan']
 
     print(roku_devices) 
 
@@ -33,15 +34,17 @@ def main():
 
     # Ring_IOT.get_doorbell_alert(Ring_IOT)
 
-    Roku_IOT.__init__(Roku_IOT, roku_devices)
+    Roku_IOT.__init__(Roku_IOT, lan, roku_devices)
     Roku_IOT.devices_on_network(Roku_IOT)
+    Roku_IOT.get_device_status(Roku_IOT)
+    Roku_IOT.get_device_info(Roku_IOT)
 
     # Processor.__init__(Processor, Ring_IOT, Roku_IOT)
     # Processor.processor_start(Processor)
 
     #Start Flask application
     if __name__ == "__main__":
-        app.run(debug=True)
+        app.run(debug=False)
 
 
 def update_config_mappings():
