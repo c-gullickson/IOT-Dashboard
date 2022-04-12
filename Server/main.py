@@ -1,6 +1,8 @@
 import sys
 import json
 from flask import Flask
+from flask_cors import CORS
+
 
 from ring_iot import Ring_IOT
 from roku_iot import Roku_IOT
@@ -36,14 +38,15 @@ def main():
 
     Roku_IOT.__init__(Roku_IOT, lan, roku_devices)
     Roku_IOT.devices_on_network(Roku_IOT)
-    Roku_IOT.get_device_status(Roku_IOT)
-    Roku_IOT.get_device_info(Roku_IOT)
+    # Roku_IOT.check_status_of_devices(Roku_IOT)
+    # Roku_IOT.check_info_of_devices(Roku_IOT)
 
     # Processor.__init__(Processor, Ring_IOT, Roku_IOT)
     # Processor.processor_start(Processor)
 
     #Start Flask application
     if __name__ == "__main__":
+        CORS(app)
         app.run(debug=False)
 
 
@@ -54,5 +57,14 @@ def update_config_mappings():
         #Ask user if they want to update the value
     #Update config mappings/passwords/tokens
     pass
+
+@app.route('/device/status')
+def roku_device_status():
+    return json.dumps(Roku_IOT.check_status_of_devices(Roku_IOT))
+
+@app.route('/device/info')
+def roku_device_info():
+    return json.dumps(Roku_IOT.check_info_of_devices(Roku_IOT))
+
 
 main()

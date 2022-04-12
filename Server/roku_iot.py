@@ -31,8 +31,9 @@ class Roku_IOT:
 
         return ping_status
 
-    def get_device_status(self):
+    def check_status_of_devices(self):
         #Lookup the status of each device
+        devices = ""
         for device in self.devices:
             url = "http://{ip_address}:8060/query/media-player".format(ip_address = device.ip_address)
 
@@ -42,11 +43,11 @@ class Roku_IOT:
             response = xmltodict.parse(requests.request("GET", url, headers=headers, data=payload).text)
             json_data = json.loads(json.dumps(response))
 
-            print(json_data)  
             device.state = json_data["player"]["@state"]      
-            print(device.state)
 
-    def get_device_info(self):
+        return [d.encoded_device(d) for d in self.devices]
+
+    def check_info_of_devices(self):
         #Lookup additional info for each device
         for device in self.devices:
             url = "http://{ip_address}:8060/query/device-info".format(ip_address = device.ip_address)
@@ -55,14 +56,14 @@ class Roku_IOT:
             headers = {}
 
             response = xmltodict.parse(requests.request("GET", url, headers=headers, data=payload).text)
-            json_data = json.loads(json.dumps(response))
+            json_data = json.loads(json.dumps(response, default=lambda obj: obj.__dict__))
 
             print(json_data)  
             device.is_tv = json_data["device-info"]["is-tv"]
             device.is_stick = json_data["device-info"]["is-stick"]
             device.friendly_device_name = json_data["device-info"]["friendly-device-name"] 
 
-            print(device.friendly_device_name)
+        return [d.encoded_device(d) for d in self.devices]
 
     #Does there need to be check state return value?
     #Thinking for checking in processor before acting on an alert?

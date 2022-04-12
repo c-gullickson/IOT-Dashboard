@@ -1,12 +1,16 @@
 {
     "lan": "",
     "ring_username" : "codydgullickson@outlook.com",
-    "ring_password" : "",
+    "ring_password" : "!",
     "ring_useragent": "cgullickson/1.0",
 
     "roku_devices": [
         {
             "device_location" : "cooper_bedroom",
+            "device_ip": ""
+        },
+        {
+            "device_location" : "master_bedroom",
             "device_ip": ""
         }
     ]
