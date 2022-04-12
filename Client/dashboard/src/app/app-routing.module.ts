@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AboutComponent } from './about/about.component';
 import { MainDashboardComponent } from './dashboard/main-dashboard/main-dashboard.component';
+import { NavigationComponent } from './navigation/navigation/navigation.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/device', pathMatch: 'full' },
-  { path: 'device', component: MainDashboardComponent, children: [
-
-  ]},];
+  { path: '', redirectTo: 'navigation/home', pathMatch: 'full' },
+  {
+    path: 'navigation', component: NavigationComponent, children: [
+      { path: 'home', component: MainDashboardComponent },
+      { path: 'about', component: AboutComponent },
+    ]
+  }
+];
 
 
 @NgModule({

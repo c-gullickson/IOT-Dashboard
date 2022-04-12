@@ -11,7 +11,7 @@ export class RokuApiService {
 
   constructor(private http: HttpClient) { }
   
-  getDeviceStatus(): Observable<RokuDevice> {
-    return this.http.get<RokuDevice>('http://127.0.0.1:5000/device/status');
+  getDeviceStatus(): Observable<RokuDevice[]> {
+    return this.http.get<RokuDevice[]>('http://127.0.0.1:5000/device/status');
   }
 }

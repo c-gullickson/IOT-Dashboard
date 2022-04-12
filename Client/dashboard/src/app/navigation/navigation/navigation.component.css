@@ -1,0 +1,24 @@
+.toolbar-spacer {
+    flex: 1 1 auto;
+  }
+
+  .sidenav-container {
+    height: 100%;
+  }
+  
+  .sidenav-drawer {
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sidenav-content {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+  }
+  .list-item-active {
+    font-weight: bold;
+    color: lightblue;
+  }
