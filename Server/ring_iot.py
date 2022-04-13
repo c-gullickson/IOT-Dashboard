@@ -4,6 +4,8 @@ from oauthlib.oauth2 import MissingTokenError
 from pathlib import Path
 import json
 
+from Class_Objects.ring_event import Ring_Event
+
 cache_file = Path("ring_token.cache")
 
 class Ring_IOT:
@@ -13,6 +15,7 @@ class Ring_IOT:
         self.username = username
         self.password = password
         self.ring = None
+        
 
     def token_updated(token):
         cache_file.write_text(json.dumps(token))
@@ -37,8 +40,7 @@ class Ring_IOT:
         self.ring.update_data()
         print("Successful Login to Ring system")
 
-    def get_devices(self):
-        
+    def check_status_of_devices(self):
         devices = self.ring.devices()
         print(devices)
 
@@ -50,21 +52,32 @@ class Ring_IOT:
         print(chimes)
         print(stickup_cams)
 
-    def get_device_info():
+    def check_info_of_devices(self):
+        devices = self.ring.devices()
+        for dev in list(devices['stickup_cams'] + devices['chimes'] + devices['doorbots'] + devices['authorized_doorbots']):
+            dev.update_health_data()
+            print('Address:    %s' % dev.address)
+            print('Family:     %s' % dev.family)
+            print('ID:         %s' % dev.id)
+            print('Name:       %s' % dev.name)
+            print('Timezone:   %s' % dev.timezone)
+            print('Wifi Name:  %s' % dev.wifi_name)
+            print('Wifi RSSI:  %s' % dev.wifi_signal_strength)
         pass
 
-    def get_doorbell_alert(self):
+    def get_doorbell_alerts(self):
+        ring_events = []
         #Will need to run in a constant loop to see if there is an alert that is triggered
         devices = self.ring.devices()
         for doorbell in devices['authorized_doorbots']:
 
             # listing the last 1 events of any kind
             for event in doorbell.history(limit=1):
-                print('ID:       %s' % event['id'])
-                print('Kind:     %s' % event['kind'])
-                print('Answered: %s' % event['answered'])
-                print('When:     %s' % event['created_at'])
-                print('--' * 50)
+                Ring_Event.__init__(Ring_Event, event["id"], event["kind"], event["answered"], event["created_at"])
+                new_event = Ring_Event.return_event(Ring_Event)
+                ring_events.append(new_event)
 
             # get a event list only the triggered by motion
-            events = doorbell.history(kind='motion')
+            # events = doorbell.history(kind='motion')
+
+        return ring_events

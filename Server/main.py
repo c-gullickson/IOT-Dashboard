@@ -30,18 +30,17 @@ def main():
     #TODO will need to input controlls to determine if all of these devices will be used.
     #TODO anticipated devices: Ring Doorbell, Roku TV, Fitbit, Lightbulbs, Weather Station
 
-    # Ring_IOT.__init__(Ring_IOT, ring_useragent, ring_username, ring_password)
-    # Ring_IOT.authenticate_ring_token(Ring_IOT)
-    # Ring_IOT.get_devices(Ring_IOT)
-
-    # Ring_IOT.get_doorbell_alert(Ring_IOT)
+    Ring_IOT.__init__(Ring_IOT, ring_useragent, ring_username, ring_password)
+    Ring_IOT.authenticate_ring_token(Ring_IOT)
+    Ring_IOT.check_status_of_devices(Ring_IOT)
+    Ring_IOT.check_info_of_devices(Ring_IOT)
 
     Roku_IOT.__init__(Roku_IOT, lan, roku_devices)
     Roku_IOT.devices_on_network(Roku_IOT)
     # Roku_IOT.check_status_of_devices(Roku_IOT)
     # Roku_IOT.check_info_of_devices(Roku_IOT)
 
-    # Processor.__init__(Processor, Ring_IOT, Roku_IOT)
+    Processor.__init__(Processor, Ring_IOT, Roku_IOT)
     # Processor.processor_start(Processor)
 
     #Start Flask application
@@ -58,13 +57,37 @@ def update_config_mappings():
     #Update config mappings/passwords/tokens
     pass
 
-@app.route('/device/status')
+#############################################
+## Routes for Roku API
+#############################################
+
+# return a list of Roku devices with basic information collected
+@app.route('roku/device/status')
 def roku_device_status():
     return json.dumps(Roku_IOT.check_status_of_devices(Roku_IOT))
 
-@app.route('/device/info')
+# return a list of Roku devices with more additional information collected
+@app.route('roku/device/info')
 def roku_device_info():
     return json.dumps(Roku_IOT.check_info_of_devices(Roku_IOT))
 
+# Client interface button interaction
+# Post call to pass a button value
+
+##############################################
+## Routes for Ring API
+##############################################
+
+# return a list of Ring devices with basic information collected
+
+# return a list of Ring devices with more additional information collected
+
+# return a list of last captured Ring alerts
+
+
+
+##############################################
+## Routes for Fitbit API
+##############################################
 
 main()

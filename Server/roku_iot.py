@@ -3,7 +3,7 @@ import json
 from urllib import response
 import requests
 import os
-from Class_Objects.roku_devices import Roku_Devices
+from Class_Objects.roku_device import Roku_Device
 
 class Roku_IOT:
     def __init__(self, lan, device_list):
@@ -16,8 +16,8 @@ class Roku_IOT:
         #Check to see if the IP of the device is on the network
         for device in self.device_list:
             if self.ping_network(self,  device["device_ip"]):
-                Roku_Devices.__init__(Roku_Devices, device["device_location"], device["device_ip"])
-                new_device = Roku_Devices.return_device(Roku_Devices)
+                Roku_Device.__init__(Roku_Device, device["device_location"], device["device_ip"])
+                new_device = Roku_Device.return_device(Roku_Device)
                 print("Device found on network " + new_device.ip_address)
                 self.devices.append(new_device)
 

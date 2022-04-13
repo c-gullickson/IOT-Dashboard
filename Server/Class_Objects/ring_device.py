@@ -1,5 +1,4 @@
-
-class Roku_Devices:
+class Ring_Device:
     # TODO Add additional information for devcie
     def __init__(self, mapped_name, ip_address):
         self.mapped_name = mapped_name

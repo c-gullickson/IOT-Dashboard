@@ -7,7 +7,11 @@
     "roku_devices": [
         {
             "device_location" : "cooper_bedroom",
-            "device_ip": ""
+            "device_ip": "192.168.10.193"
+        },
+        {
+            "device_location" : "master_bedroom",
+            "device_ip": "192.168.10.193"
         }
     ]
 }
