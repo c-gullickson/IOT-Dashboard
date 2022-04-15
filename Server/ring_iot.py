@@ -5,6 +5,7 @@ from pathlib import Path
 import json
 
 from Class_Objects.ring_event import Ring_Event
+from Class_Objects.ring_device import Ring_Device
 
 cache_file = Path("ring_token.cache")
 
@@ -15,6 +16,7 @@ class Ring_IOT:
         self.username = username
         self.password = password
         self.ring = None
+        self.devices = []
         
 
     def token_updated(token):
@@ -40,44 +42,53 @@ class Ring_IOT:
         self.ring.update_data()
         print("Successful Login to Ring system")
 
-    def check_status_of_devices(self):
-        devices = self.ring.devices()
-        print(devices)
-
-        doorbells = devices["doorbots"]
-        chimes = devices["chimes"]
-        stickup_cams = devices["stickup_cams"]
-
-        print(doorbells)
-        print(chimes)
-        print(stickup_cams)
-
     def check_info_of_devices(self):
         devices = self.ring.devices()
         for dev in list(devices['stickup_cams'] + devices['chimes'] + devices['doorbots'] + devices['authorized_doorbots']):
             dev.update_health_data()
-            print('Address:    %s' % dev.address)
-            print('Family:     %s' % dev.family)
-            print('ID:         %s' % dev.id)
-            print('Name:       %s' % dev.name)
-            print('Timezone:   %s' % dev.timezone)
-            print('Wifi Name:  %s' % dev.wifi_name)
-            print('Wifi RSSI:  %s' % dev.wifi_signal_strength)
-        pass
 
-    def get_doorbell_alerts(self):
+            Ring_Device.__init__(Ring_Device, dev.address, dev.family, dev.id, dev.name, dev.timezone, dev.wifi_signal_strength, dev.battery_life, dev.model)
+            new_device = Ring_Device.return_device(Ring_Device)
+
+            self.devices.append(new_device)
+
+        return [d.encoded_device(d) for d in self.devices]
+
+
+    def get_recent_doorbell_alert(self):
         ring_events = []
-        #Will need to run in a constant loop to see if there is an alert that is triggered
         devices = self.ring.devices()
         for doorbell in devices['authorized_doorbots']:
 
             # listing the last 1 events of any kind
             for event in doorbell.history(limit=1):
+                
                 Ring_Event.__init__(Ring_Event, event["id"], event["kind"], event["answered"], event["created_at"])
                 new_event = Ring_Event.return_event(Ring_Event)
                 ring_events.append(new_event)
 
-            # get a event list only the triggered by motion
-            # events = doorbell.history(kind='motion')
+        return [e.encoded_event(e) for e in ring_events]
 
-        return ring_events
+    def get_recent_doorbell_video_url(self, device_id):
+        recorded_url = ""
+        devices = self.ring.devices()
+        for dev in list(devices['authorized_doorbots']):
+            print(dev.id)
+            if dev.id == (int(device_id)):
+                recorded_url = dev.recording_url(dev.last_recording_id)
+                print(recorded_url)
+
+        return {'recording_url' : recorded_url}
+
+    # def get_doorbell_alerts_history(self):
+    #     ring_events = []
+    #     devices = self.ring.devices()
+    #     for doorbell in devices['authorized_doorbots']:
+
+    #         # listing the last 10 events of any kind
+    #         for event in doorbell.history(limit=15):
+    #             Ring_Event.__init__(Ring_Event, event["id"], event["kind"], event["answered"], event["created_at"])
+    #             new_event = Ring_Event.return_event(Ring_Event)
+    #             ring_events.append(new_event)
+
+    #     return [e.encoded_event(e) for e in ring_events]

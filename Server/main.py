@@ -32,8 +32,8 @@ def main():
 
     Ring_IOT.__init__(Ring_IOT, ring_useragent, ring_username, ring_password)
     Ring_IOT.authenticate_ring_token(Ring_IOT)
-    Ring_IOT.check_status_of_devices(Ring_IOT)
-    Ring_IOT.check_info_of_devices(Ring_IOT)
+    # Ring_IOT.check_status_of_devices(Ring_IOT)
+    # Ring_IOT.check_info_of_devices(Ring_IOT)
 
     Roku_IOT.__init__(Roku_IOT, lan, roku_devices)
     Roku_IOT.devices_on_network(Roku_IOT)
@@ -41,7 +41,7 @@ def main():
     # Roku_IOT.check_info_of_devices(Roku_IOT)
 
     Processor.__init__(Processor, Ring_IOT, Roku_IOT)
-    # Processor.processor_start(Processor)
+    Processor.processor_start(Processor)
 
     #Start Flask application
     if __name__ == "__main__":
@@ -62,12 +62,12 @@ def update_config_mappings():
 #############################################
 
 # return a list of Roku devices with basic information collected
-@app.route('roku/device/status')
+@app.route('/roku/device/status')
 def roku_device_status():
     return json.dumps(Roku_IOT.check_status_of_devices(Roku_IOT))
 
 # return a list of Roku devices with more additional information collected
-@app.route('roku/device/info')
+@app.route('/roku/device/info')
 def roku_device_info():
     return json.dumps(Roku_IOT.check_info_of_devices(Roku_IOT))
 
@@ -78,16 +78,38 @@ def roku_device_info():
 ## Routes for Ring API
 ##############################################
 
-# return a list of Ring devices with basic information collected
+# return a list of Ring devices with additional information collected
+@app.route('/ring/device/status')
+def ring_device_status():
+    return json.dumps(Ring_IOT.check_info_of_devices(Ring_IOT))
 
-# return a list of Ring devices with more additional information collected
+# return a list of last captured Ring alert
+@app.route('/ring/device/alert')
+def ring_device_alert():
+    return json.dumps(Ring_IOT.get_recent_doorbell_alert(Ring_IOT))
 
-# return a list of last captured Ring alerts
+# return a list of last captured Ring alerts (History) Seems to return the alert from the x number of alerts prior
+# @app.route('/ring/device/alerts')
+# def ring_device_alerts():
+#     return json.dumps(Ring_IOT.get_doorbell_alerts_history(Ring_IOT))
 
+# return a list of last captured Ring alert
+@app.route('/ring/device/alert_recording/<device_id>')
+def ring_device_alert_recording(device_id):
+    return json.dumps(Ring_IOT.get_recent_doorbell_video_url(Ring_IOT, device_id))
 
+# Need to pass MFA value to device login
 
 ##############################################
 ## Routes for Fitbit API
 ##############################################
 
+
+##############################################
+## Routes for Weather API
+##############################################
+
+##############################################
+## Routes for Light API
+##############################################
 main()

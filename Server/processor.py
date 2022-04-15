@@ -1,5 +1,7 @@
 from time import sleep
-from datetime import datetime, timezone
+from datetime import datetime, timezone, tzinfo
+
+from pytz import utc
 
 class Processor:
     def __init__(self, ring_iot, roku_iot):
@@ -14,11 +16,12 @@ class Processor:
             #Need to clear out list of events each time lookup process is ran
         while True:
             print("Processor Running")
-            events = self.ring_iot.get_doorbell_alerts(self.ring_iot)
+            events = self.ring_iot.get_recent_doorbell_alert(self.ring_iot)
             current_time = datetime.now(timezone.utc)
             for e in events:
-                print(e.event_created_at)
-                time_difference = (current_time - e.event_created_at)
+                print(datetime.strptime(e['event_created_at'], '%Y-%m-%d%H:%M:%S'))
+                print(current_time)
+                time_difference = (current_time.replace(tzinfo=None) - datetime.strptime(e['event_created_at'], '%Y-%m-%d%H:%M:%S'))
                 print("Time Difference ", time_difference)
                 
                 if time_difference.total_seconds() < 45:
