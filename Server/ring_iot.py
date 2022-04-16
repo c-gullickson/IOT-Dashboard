@@ -10,11 +10,12 @@ from Class_Objects.ring_device import Ring_Device
 cache_file = Path("ring_token.cache")
 
 class Ring_IOT:
-    def __init__(self, user_agent, username, password):
+    def __init__(self, user_agent, username, password, ring_auth_code):
         #Initialize the required Ring class and parameters
         self.user_agent = user_agent
         self.username = username
         self.password = password
+        self.ring_auth_code = ring_auth_code
         self.ring = None
         self.devices = []
         
@@ -22,10 +23,10 @@ class Ring_IOT:
     def token_updated(token):
         cache_file.write_text(json.dumps(token))
 
-    def otp_callback():
-        # TODO: Will need to become a user input of some type?
-        auth_code = input("2FA code: ")
-        return auth_code
+    # def otp_callback():
+    #     # TODO: Will need to become a user input of some type?
+    #     auth_code = input("2FA code: ")
+    #     return auth_code
 
     def authenticate_ring_token(self):
         if cache_file.is_file():
@@ -35,7 +36,7 @@ class Ring_IOT:
             try:
                 auth.fetch_token(self.username, self.password)
             except MissingTokenError:
-                auth.fetch_token(self.username, self.password, self.otp_callback())
+                auth.fetch_token(self.username, self.password, self.ring_auth_code)
 
         #Initialize the Python_Ring_API imported from ring_doorbell
         self.ring = Ring(auth)

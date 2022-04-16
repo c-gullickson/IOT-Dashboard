@@ -1,3 +1,4 @@
+import ipaddress
 import xmltodict
 import json
 from urllib import response
@@ -65,6 +66,18 @@ class Roku_IOT:
 
         return [d.encoded_device(d) for d in self.devices]
 
+    def key_input(self, ip_address, key):
+        if key == "PowerOn":
+            self.set_device_on(ip_address)
+        if key == "PowerOff":
+            self.set_device_off(ip_address)
+        if key == "Play":
+            self.set_device_play(ip_address)
+        if key == "Pause":
+            self.set_device_pause(ip_address)
+        
+        return
+
     #Does there need to be check state return value?
     #Thinking for checking in processor before acting on an alert?
     def get_device_state(self, device_ip):
@@ -96,7 +109,6 @@ class Roku_IOT:
         #Universal method for making keypad button request
         payload={}
         headers = {}
-
         response = requests.request("POST", url, headers=headers, data=payload)
 
         print(response.text)
