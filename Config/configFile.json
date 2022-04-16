@@ -1,18 +1,1 @@
-{
-    "lan": "192.168.10.0/24",
-    "ring_username" : "codydgullickson@outlook.com",
-    "ring_password" : "test!",
-    "ring_useragent": "cgullickson/1.0",
-    "ring_auth_code": "",
-
-    "roku_devices": [
-        {
-            "device_location" : "cooper_bedroom",
-            "device_ip": "192.168.10.193"
-        },
-        {
-            "device_location" : "master_bedroom",
-            "device_ip": "192.168.10.164"
-        }
-    ]
-}
+{"ring_username": "codydgullickson@outlook.com", "ring_password": "test!", "ring_useragent": "cgullickson/1.0", "roku_devices": [{"device_location": "cooper_bedroom", "device_ip": "192.168.10.193"}], "lan": "192.168.10.0/24", "ring_auth_code": ""}

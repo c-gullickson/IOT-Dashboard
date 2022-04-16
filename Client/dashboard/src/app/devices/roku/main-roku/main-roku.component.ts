@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DashboardApiService } from 'src/app/api-services/dashboard/dashboard-api.service';
 import { RokuApiService } from 'src/app/api-services/roku/roku-api.service';
 import { RokuDevice } from 'src/app/api-services/roku/roku-device';
 
@@ -9,16 +10,33 @@ import { RokuDevice } from 'src/app/api-services/roku/roku-device';
 })
 export class MainRokuComponent implements OnInit {
 
-  constructor(private rokuApi: RokuApiService) { }
+  constructor(private rokuApi: RokuApiService, private dashboardApi: DashboardApiService) { }
 
-  rokuDevices: RokuDevice[] = []
+  rokuDevices: RokuDevice[] = [];
+  isRokuInit: Boolean = false;
 
   ngOnInit(): void {
     console.log("Main Roku Start")
-    this.getStatusOfDevices()
+    this.isRokuInitialized()
+  }
+  isRokuInitialized() {
+    this.dashboardApi.rokuIntializedStatus().subscribe({
+      next: (data : any) => {
+        this.isRokuInit = data['initialize_roku'];
+        if (this.isRokuInit == true){
+          console.log("Get Roku Devices");
+          this.getStatusOfDevices()
+        }
+      }, 
+      error: (err => {
+        this.isRokuInit = false;
+        console.log("Error getting Roku Status: " + err)
+      })
+    });
   }
 
   getStatusOfDevices() {
+    this.rokuDevices = [];
     this.rokuApi.getDeviceStatus().subscribe({
       next: (data: RokuDevice[]) => {
         data.forEach(element => {

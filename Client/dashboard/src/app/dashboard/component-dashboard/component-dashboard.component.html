@@ -1,7 +1,7 @@
-<p>component-dashboard works!</p>
-
 <p>Control true / false for initializing other devices</p>
 
 <mat-slide-toggle [(ngModel)]="isRoku" (change)="toggleRokuChanges($event)">Initialize Roku Devices</mat-slide-toggle>
 <mat-slide-toggle [(ngModel)]="isRing" (change)="toggleRingChanges($event)">Initialize Ring Devices</mat-slide-toggle>
 <mat-slide-toggle [(ngModel)]="isProcessor" (change)="toggleProcessorChanges($event)">Initialize Data Processor</mat-slide-toggle>
+
+<!-- Put in notification box incase of an error? -->

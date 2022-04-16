@@ -34,7 +34,6 @@ class Roku_IOT:
 
     def check_status_of_devices(self):
         #Lookup the status of each device
-        devices = ""
         for device in self.devices:
             url = "http://{ip_address}:8060/query/media-player".format(ip_address = device.ip_address)
 

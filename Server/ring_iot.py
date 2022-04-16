@@ -44,6 +44,7 @@ class Ring_IOT:
         print("Successful Login to Ring system")
 
     def check_info_of_devices(self):
+        self.devices = []
         devices = self.ring.devices()
         for dev in list(devices['stickup_cams'] + devices['chimes'] + devices['doorbots'] + devices['authorized_doorbots']):
             dev.update_health_data()

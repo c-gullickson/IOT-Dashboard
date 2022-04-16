@@ -22,21 +22,21 @@ export class ComponentDashboardComponent implements OnInit {
         this.isRoku = data['initialize_roku'];
         console.log(this.isRoku);
       }
-    })
+    });
 
     this.dashboardApi.ringIntializedStatus().subscribe({
       next: (data : any) => {
         this.isRing = data['initialize_ring'];
         console.log(this.isRing);
       }
-    })
+    });
 
     this.dashboardApi.processorIntializedStatus().subscribe({
       next: (data : any) => {
         this.isProcessor = data['initialize_processor'];
         console.log(this.isProcessor);
       }
-    })
+    });
   }
 
   toggleRokuChanges($event: MatSlideToggleChange){

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DashboardApiService } from 'src/app/api-services/dashboard/dashboard-api.service';
 import { RingApiService } from 'src/app/api-services/ring/ring-api.service';
 import { RingDevice } from 'src/app/api-services/ring/ring-device';
 
@@ -9,16 +10,33 @@ import { RingDevice } from 'src/app/api-services/ring/ring-device';
 })
 export class MainRingComponent implements OnInit {
 
-  constructor(private ringApi: RingApiService) { }
+  constructor(private ringApi: RingApiService, private dashboardApi: DashboardApiService) { }
 
   ringDevices: RingDevice[] = []
+  isRingInit: Boolean = false;
 
   ngOnInit(): void {
     console.log("Main Ring Start")
-    this.getStatusOfDevices()
+    this.isRokuInitialized()
+  }
+  isRokuInitialized() {
+    this.dashboardApi.ringIntializedStatus().subscribe({
+      next: (data : any) => {
+        this.isRingInit = data['initialize_ring'];
+        if (this.isRingInit == true){
+          console.log("Get Ring Devices");
+          this.getStatusOfDevices()
+        }
+      }, 
+      error: (err => {
+        this.isRingInit = false;
+        console.log("Error getting Ring Status: " + err)
+      })
+    });
   }
 
   getStatusOfDevices() {
+    this.ringDevices = [];
     this.ringApi.getDeviceStatus().subscribe({
       next: (data: RingDevice[]) => {
         data.forEach(element => {
