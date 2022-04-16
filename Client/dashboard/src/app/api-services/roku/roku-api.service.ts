@@ -14,4 +14,12 @@ export class RokuApiService {
   getDeviceStatus(): Observable<RokuDevice[]> {
     return this.http.get<RokuDevice[]>('http://127.0.0.1:5000/roku/device/status');
   }
+
+  getDeviceInfo(): Observable<RokuDevice[]> {
+    return this.http.get<RokuDevice[]>('http://127.0.0.1:5000/roku/device/info');
+  }
+
+  controlDeviceKeyInput(keyInput): Observable<any> {
+    return this.http.post<any>('http://127.0.0.1:5000/roku/device/key_input', keyInput);
+  }
 }

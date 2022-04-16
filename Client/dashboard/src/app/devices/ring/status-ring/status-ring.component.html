@@ -1,1 +1,24 @@
-<p>status-ring works!</p>
+<div>
+    <h1>Ring Devices</h1>
+    <h2>Device Overview</h2>
+</div>
+<mat-card *ngFor="let device of ringDevices">
+    <mat-card-content>
+        <mat-card>
+            <mat-card-title>Ring Device {{device.family_name}}</mat-card-title>
+            <mat-card-content>
+                <ul>
+                    <li>Friendly Name: {{device.family_name}}</li>
+                    <li>Device Id: {{device.device_id}}</li>
+                    <li>Device Model: {{device.model}}</li>
+                    <li>Device Battery: {{device.battery}}</li>
+
+
+                </ul>
+
+                <!-- Add in card actions to control? -->
+            </mat-card-content>
+        </mat-card>
+
+    </mat-card-content>
+</mat-card>

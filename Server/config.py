@@ -11,9 +11,9 @@ class Config:
         self.roku_devices = ""
         self.lan = ""
 
-        self.initialize_ring = True
-        self.initialize_roku = True
-        self.initialize_processor = True
+        self.initialize_ring = False
+        self.initialize_roku = False
+        self.initialize_processor = False
 
     def load_config_mappings(self):
         #Read file for mappings and passwords

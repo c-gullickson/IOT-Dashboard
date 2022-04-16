@@ -26,6 +26,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTableModule} from '@angular/material/table'; 
 import {MatTabsModule} from '@angular/material/tabs'; 
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 import { AboutComponent } from './about/about.component';
 import { MainRokuComponent } from './devices/roku/main-roku/main-roku.component';
 import { MainRingComponent } from './devices/ring/main-ring/main-ring.component';
@@ -80,6 +82,8 @@ import { ComponentDashboardComponent } from './dashboard/component-dashboard/com
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
+    MatSlideToggleModule 
+
   ],
   providers: [],
   bootstrap: [AppComponent]

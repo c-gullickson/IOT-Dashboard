@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AboutComponent } from './about/about.component';
+import { LoginDashboardComponent } from './dashboard/login-dashboard/login-dashboard.component';
 import { MainDashboardComponent } from './dashboard/main-dashboard/main-dashboard.component';
 import { NavigationComponent } from './navigation/navigation/navigation.component';
 
@@ -10,6 +11,7 @@ const routes: Routes = [
     path: 'navigation', component: NavigationComponent, children: [
       { path: 'home', component: MainDashboardComponent },
       { path: 'about', component: AboutComponent },
+      { path: 'configuration', component: LoginDashboardComponent },
     ]
   }
 ];
