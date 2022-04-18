@@ -50,11 +50,11 @@ def initialize_processor():
     if Config.initialize_ring == True and Config.initialize_roku == True:
         try: 
             Processor.__init__(Processor, Ring_IOT, Roku_IOT)
-            thread = Thread(target = Processor.processor_start(Processor))
-            thread.start()
+            thread = Thread(target = Processor.processor_start(Processor)).run()
+            
         except Exception as e:
             return e
-
+    return
 
 
 
@@ -65,11 +65,14 @@ def initialize_processor():
 # return a list of Roku devices with basic information collected
 @app.route('/roku/device/status')
 def roku_device_status():
+    Roku_IOT.devices_on_network(Roku_IOT)
     return json.dumps(Roku_IOT.check_status_of_devices(Roku_IOT))
 
 # return a list of Roku devices with more additional information collected
 @app.route('/roku/device/info')
 def roku_device_info():
+    Roku_IOT.devices_on_network(Roku_IOT)
+    Roku_IOT.check_status_of_devices(Roku_IOT)
     return json.dumps(Roku_IOT.check_info_of_devices(Roku_IOT))
 
 # Client interface button interaction
@@ -77,11 +80,12 @@ def roku_device_info():
 @app.route('/roku/device/key_input', methods = ['POST'])
 def roku_key_input():
     if request.method == 'POST':
+        Roku_IOT.devices_on_network(Roku_IOT)
         key = request.json['key']
         ip_address = request.json['ip_address']
 
     # TODO: Add a valid response message?
-    Roku_IOT.key_input(Roku_IOT, key, ip_address)
+    return json.dumps(Roku_IOT.key_input(Roku_IOT, ip_address, key))
 
 ##############################################
 ## Routes for Ring API
@@ -135,7 +139,9 @@ def dashboard_get_config():
 @app.route('/dashboard/config/update', methods = ['POST'])
 def dashboard_update_config():
     if request.method == 'POST':
-        return json.dumps(Config.update_config_mappings(Config, request.json))
+        response = Config.update_config_mappings(Config, request.json)
+        Roku_IOT.update_device_list(Roku_IOT, Config.roku_devices)
+        return json.dumps(response)
     
 @app.route('/dashboard/initialize_ring')
 def dashboard_initialize_ring():

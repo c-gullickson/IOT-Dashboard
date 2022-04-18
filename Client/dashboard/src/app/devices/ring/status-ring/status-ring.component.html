@@ -12,13 +12,11 @@
                     <li>Device Id: {{device.device_id}}</li>
                     <li>Device Model: {{device.model}}</li>
                     <li>Device Battery: {{device.battery}}</li>
-
-
                 </ul>
-
-                <!-- Add in card actions to control? -->
             </mat-card-content>
+            <mat-card-actions>
+                <app-alerts-ring [device_id]=device.device_id></app-alerts-ring>
+            </mat-card-actions>
         </mat-card>
-
     </mat-card-content>
 </mat-card>

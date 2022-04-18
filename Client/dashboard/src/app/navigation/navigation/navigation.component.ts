@@ -28,7 +28,7 @@ export class NavigationComponent implements OnInit {
 
     this.menuItems.push(
       {
-        path: 'roku',
+        path: 'roku/status',
         title: 'Roku Television',
         icon: 'devices'
       }
@@ -36,7 +36,7 @@ export class NavigationComponent implements OnInit {
 
     this.menuItems.push(
       {
-        path: 'ring',
+        path: 'ring/status',
         title: 'Ring Doorbell',
         icon: 'tv'
       }

@@ -19,7 +19,7 @@ export class StatusRokuComponent implements OnInit {
   }
 
   getStatusOfDevices() {
-    this.rokuApi.getDeviceStatus().subscribe({
+    this.rokuApi.getDeviceInfo().subscribe({
       next: (data: RokuDevice[]) => {
         data.forEach(element => {
           this.rokuDevices.push(this.createRokuDevice(element))

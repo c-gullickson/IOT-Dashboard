@@ -103,6 +103,12 @@ export class LoginDashboardComponent implements OnInit {
     }
 
     console.log(configUpdate);
+
+    this.dashboardApi.updateDashboardConfig(configUpdate).subscribe({
+      next: (data : any) => {
+        console.log("Dashboard Update: " + data)
+      }
+    });
   }
 
 }

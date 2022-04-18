@@ -1,8 +1,6 @@
 from time import sleep
 from datetime import datetime, timezone, tzinfo
 
-from pytz import utc
-
 class Processor:
     def __init__(self, ring_iot, roku_iot):
         self.ring_iot = ring_iot
@@ -25,16 +23,16 @@ class Processor:
                 print("Time Difference ", time_difference)
                 
                 if time_difference.total_seconds() < 45:
-                    print("Trigger Roku Pause: less than 45 second since motion")
+                    print("Trigger Roku Pause: less than 15 second since motion")
                     print(str(time_difference.total_seconds()))
 
-                    # TODO 
-                    # What devices are online (for each IP address?)
-                    # 
-                    self.roku_iot.set_device_pause(self.roku_iot, "")
+                    devices = self.roku_iot.devices_on_network(self.roku_iot)
+                    for dev in devices:
+                        print("Pause any device that is currently on the network and associated to dashboard.")
+                        self.roku_iot.set_device_pause(self.roku_iot, dev.ip_address)
                 else:
                     print("More than 45 second since motion")
                     print(str(time_difference.total_seconds()))
 
             # Sleep before checking a set of events
-            sleep(45)
+            sleep(15)

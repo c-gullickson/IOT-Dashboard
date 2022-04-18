@@ -20,6 +20,6 @@ export class RingApiService {
   }
 
   getAlertRecording(deviceId): Observable<any> {
-    return this.http.get<any[]>('http://127.0.0.1:5000/ring/device/alert_recording', deviceId);
+    return this.http.get<any>('http://127.0.0.1:5000/ring/device/alert_recording/'+ deviceId);
   }
 }

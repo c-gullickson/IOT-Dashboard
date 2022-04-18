@@ -15,6 +15,7 @@ class Roku_IOT:
 
     def devices_on_network(self):
         #Check to see if the IP of the device is on the network
+        self.devices = []
         for device in self.device_list:
             if self.ping_network(self,  device["device_ip"]):
                 Roku_Device.__init__(Roku_Device, device["device_location"], device["device_ip"])
@@ -22,15 +23,16 @@ class Roku_IOT:
                 print("Device found on network " + new_device.ip_address)
                 self.devices.append(new_device)
 
+        return self.devices        
+
     def ping_network(self, ip_address):
         #Send ping message to check the IP address is valid for the device
-        response = os.system("ping -n 1 " + ip_address)
-        if response == 0:
-            ping_status = True
-        else:
-            ping_status = False
-
-        return ping_status
+        try:
+            response = os.system("ping -n 2 " + ip_address)
+            if response == 0:
+                return True
+        except:
+            return False
 
     def check_status_of_devices(self):
         #Lookup the status of each device
@@ -67,13 +69,13 @@ class Roku_IOT:
 
     def key_input(self, ip_address, key):
         if key == "PowerOn":
-            self.set_device_on(ip_address)
+            self.set_device_on(self, ip_address)
         if key == "PowerOff":
-            self.set_device_off(ip_address)
+            self.set_device_off(self, ip_address)
         if key == "Play":
-            self.set_device_play(ip_address)
+            self.set_device_play(self, ip_address)
         if key == "Pause":
-            self.set_device_pause(ip_address)
+            self.set_device_pause(self, ip_address)
         
         return
 
@@ -111,3 +113,6 @@ class Roku_IOT:
         response = requests.request("POST", url, headers=headers, data=payload)
 
         print(response.text)
+
+    def update_device_list(self, device_list):
+        self.device_list = device_list
