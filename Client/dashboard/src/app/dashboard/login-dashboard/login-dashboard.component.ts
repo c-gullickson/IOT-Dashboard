@@ -22,6 +22,9 @@ export class LoginDashboardComponent implements OnInit {
     ringAuthCode: new FormControl(''),
     lan: new FormControl(''),
 
+    sengledUsername: new FormControl(''),
+    sengledPassword: new FormControl(''),
+
     rokuDevices: this.fb.array([])
   })
 
@@ -50,11 +53,16 @@ export class LoginDashboardComponent implements OnInit {
   }
 
   populateFormControls() {
+    // ring doorbell values
     this.configForm.get('ringUsername').patchValue(this.configuration['ring_username']);
     this.configForm.get('ringPassword').patchValue(this.configuration['ring_password']);
     this.configForm.get('ringUserAgent').patchValue(this.configuration['ring_useragent']);
     this.configForm.get('ringAuthCode').patchValue(this.configuration['ring_auth_code']);
     this.configForm.get('lan').patchValue(this.configuration['lan']);
+
+    // Cync lights values
+    this.configForm.get('sengledUsername').patchValue(this.configuration['sengled_username']);
+    this.configForm.get('sengledPassword').patchValue(this.configuration['sengled_password']);
 
     this.configuration['roku_devices'].forEach(element => {
       this.addRokuDevice(element['device_location'], element['device_ip'])
@@ -99,7 +107,10 @@ export class LoginDashboardComponent implements OnInit {
       ring_password: this.configForm['controls']['ringPassword'].value,
       ring_useragent: this.configForm['controls']['ringUserAgent'].value,
       ring_auth_code: this.configForm['controls']['ringAuthCode'].value,
-      roku_devices: rokuDevices
+      roku_devices: rokuDevices,
+
+      sengled_username: this.configForm['controls']['sengledUsername'].value,
+      sengled_password: this.configForm['controls']['sengledPassword'].value,
     }
 
     console.log(configUpdate);

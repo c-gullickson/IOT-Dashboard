@@ -29,12 +29,13 @@
 
                     </mat-form-field>
                 </tr>
+                <tr>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Local Area Network</mat-label>
+                        <input type="text" matInput formControlName="lan">
+                    </mat-form-field>
+                </tr>
             </table>
-
-            <mat-form-field appearance="fill">
-                <mat-label>Local Area Network</mat-label>
-                <input type="text" matInput formControlName="lan">
-            </mat-form-field>
 
             <div formArrayName="rokuDevices">
                 <ng-container *ngFor="let rokuDevice of rokuDevices.controls; let index = index">
@@ -49,29 +50,24 @@
                     </div>
                 </ng-container>
             </div>
+
+            <table>
+                <tr>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Sengled Username</mat-label>
+                        <input type="text" matInput formControlName="sengledUsername">
+                    </mat-form-field>
+                </tr>
+                <tr>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Sengled Password</mat-label>
+                        <input type="text" matInput formControlName="sengledPassword">
+                    </mat-form-field>
+                </tr>
+            </table>
             <p>
                 <button type="button" (click)="addRokuDevice('', '')">Add</button>
-              </p>
-
-
-
-
-
-            <!-- <table>
-                <mat-form-field appearance="fill">
-                    <mat-label>Start Date</mat-label>
-                    <input #startDateEle matInput [matDatepicker]="startPicker" formControlName="startDate">
-                    <mat-datepicker #startPicker></mat-datepicker>
-                    <button type="button" mat-raised-button (click)="startPicker.open()">Start Date</button>
-                </mat-form-field>
-
-                <mat-form-field appearance="fill">
-                    <mat-label>End Date</mat-label>
-                    <input #endDateEle matInput [matDatepicker]="endPicker" formControlName="endDate">
-                    <mat-datepicker #endPicker></mat-datepicker>
-                    <button type="button" mat-raised-button (click)="endPicker.open()">End Date</button>
-                </mat-form-field>
-            </table> -->
+            </p>
         </mat-card-content>
         <mat-card-actions>
             <button type="submit" [disabled]="!configForm.valid" mat-button>Submit</button>

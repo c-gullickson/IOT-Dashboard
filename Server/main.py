@@ -3,6 +3,7 @@ import json
 from flask import Flask, request
 from flask_cors import CORS
 from threading import Thread
+from sengled_iot import Sengled_IOT
 
 from ring_iot import Ring_IOT
 from roku_iot import Roku_IOT
@@ -45,6 +46,16 @@ def initialize_roku():
             return "Roku Devices Initialized"
         except Exception as e:
             return e
+
+def initialize_sengled():
+    if Config.initialize_sengled == True:
+        try: 
+            Sengled_IOT.__init__(Sengled_IOT, Config.sengled_username, Config.sengled_password)
+            Sengled_IOT.authenticate_sengled_token(Sengled_IOT)
+            return "Sengled Devices Initialized"
+        except Exception as e:
+            return e
+    
 
 def initialize_processor():
     if Config.initialize_ring == True and Config.initialize_roku == True:
@@ -153,6 +164,11 @@ def dashboard_initialize_roku():
     Config.set_init_roku_status_true(Config)
     return json.dumps(initialize_roku())
 
+@app.route('/dashboard/initialize_sengled')
+def dashboard_initialize_sengled():
+    Config.set_init_sengled_status_true(Config)
+    return json.dumps(initialize_sengled())
+
 @app.route('/dashboard/initialize_processor')
 def dashboard_initialize_processor():
     Config.set_init_processor_status_true(Config)
@@ -165,6 +181,10 @@ def dashboard_ring():
 @app.route('/dashboard/roku_enabled')
 def dashboard_roku():
     return json.dumps(Config.get_init_roku_status(Config))
+
+@app.route('/dashboard/sengled_enabled')
+def dashboard_sengled():
+    return json.dumps(Config.get_init_sengled_status(Config))
 
 @app.route('/dashboard/processor_enabled')
 def dashboard_processor(): 

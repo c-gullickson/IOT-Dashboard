@@ -7,5 +7,8 @@ export interface ConfigUpdateRequest {
     ring_useragent?: string;
     ring_auth_code?: string;
     roku_devices?: RokuDeviceConfig[];
+
+    sengled_username?: string;
+    sengled_password?: string;
 }
 
