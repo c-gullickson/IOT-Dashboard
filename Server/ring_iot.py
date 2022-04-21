@@ -48,13 +48,9 @@ class Ring_IOT:
         devices = self.ring.devices()
         for dev in list(devices['stickup_cams'] + devices['chimes'] + devices['doorbots'] + devices['authorized_doorbots']):
             dev.update_health_data()
+            self.devices.append(Ring_Device(dev.address, dev.family, dev.id, dev.name, dev.timezone, dev.wifi_signal_strength, dev.battery_life, dev.model))
 
-            Ring_Device.__init__(Ring_Device, dev.address, dev.family, dev.id, dev.name, dev.timezone, dev.wifi_signal_strength, dev.battery_life, dev.model)
-            new_device = Ring_Device.return_device(Ring_Device)
-
-            self.devices.append(new_device)
-
-        return [d.encoded_device(d) for d in self.devices]
+        return [d.encoded_device() for d in self.devices]
 
 
     def get_recent_doorbell_alert(self):
@@ -64,12 +60,10 @@ class Ring_IOT:
 
             # listing the last 1 events of any kind
             for event in doorbell.history(limit=1):
-                
-                Ring_Event.__init__(Ring_Event, event["id"], event["kind"], event["answered"], event["created_at"])
-                new_event = Ring_Event.return_event(Ring_Event)
-                ring_events.append(new_event)
+                                
+                ring_events.append(Ring_Event(event["id"], event["kind"], event["answered"], event["created_at"]))
 
-        return [e.encoded_event(e) for e in ring_events]
+        return [e.encoded_event() for e in ring_events]
 
     def get_recent_doorbell_video_url(self, device_id):
         recorded_url = ""

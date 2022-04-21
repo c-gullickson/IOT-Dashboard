@@ -18,10 +18,7 @@ class Roku_IOT:
         self.devices = []
         for device in self.device_list:
             if self.ping_network(self,  device["device_ip"]):
-                Roku_Device.__init__(Roku_Device, device["device_location"], device["device_ip"])
-                new_device = Roku_Device.return_device(Roku_Device)
-                print("Device found on network " + new_device.ip_address)
-                self.devices.append(new_device)
+                self.devices.append(Roku_Device(device["device_location"], device["device_ip"]))
 
         return self.devices        
 
@@ -47,7 +44,7 @@ class Roku_IOT:
 
             device.state = json_data["player"]["@state"]      
 
-        return [d.encoded_device(d) for d in self.devices]
+        return [d.encoded_device() for d in self.devices]
 
     def check_info_of_devices(self):
         #Lookup additional info for each device
@@ -65,7 +62,7 @@ class Roku_IOT:
             device.is_stick = json_data["device-info"]["is-stick"]
             device.friendly_device_name = json_data["device-info"]["friendly-device-name"] 
 
-        return [d.encoded_device(d) for d in self.devices]
+        return [d.encoded_device() for d in self.devices]
 
     def key_input(self, ip_address, key):
         if key == "PowerOn":

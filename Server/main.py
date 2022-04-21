@@ -137,6 +137,11 @@ def ring_device_alert_recording(device_id):
 ## Routes for Light API
 ##############################################
 
+# return a list of Roku devices with more additional information collected
+@app.route('/lights/device/info')
+def light_device_info():
+    return json.dumps(Sengled_IOT.check_info_of_devices(Sengled_IOT))
+
 ###############################################
 ## Routes for config file login API
 ###############################################

@@ -40,6 +40,7 @@ import { AlertsRingComponent } from './devices/ring/alerts-ring/alerts-ring.comp
 import { StatusRingComponent } from './devices/ring/status-ring/status-ring.component';
 import { LoginDashboardComponent } from './dashboard/login-dashboard/login-dashboard.component';
 import { ComponentDashboardComponent } from './dashboard/component-dashboard/component-dashboard.component';
+import { StatusLightsComponent } from './devices/lights/status-lights/status-lights.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ComponentDashboardComponent } from './dashboard/component-dashboard/com
     AlertsRingComponent,
     StatusRingComponent,
     LoginDashboardComponent,
-    ComponentDashboardComponent
+    ComponentDashboardComponent,
+    StatusLightsComponent
   ],
   imports: [
     BrowserModule,
