@@ -30,7 +30,7 @@ export class NavigationComponent implements OnInit {
       {
         path: 'roku/status',
         title: 'Roku Television',
-        icon: 'devices'
+        icon: 'tv'
       }
     )
 
@@ -38,15 +38,15 @@ export class NavigationComponent implements OnInit {
       {
         path: 'ring/status',
         title: 'Ring Doorbell',
-        icon: 'tv'
+        icon: 'devices'
       }
     )
 
     this.menuItems.push(
       {
-        path: 'fitbit',
-        title: 'Fitbit',
-        icon: 'watch'
+        path: 'lights/status',
+        title: 'Lights',
+        icon: 'lightbulb_outline'
       }
     )
 
@@ -55,6 +55,14 @@ export class NavigationComponent implements OnInit {
         path: 'about',
         title: 'About Application',
         icon: 'question_answer'
+      }
+    )
+
+    this.menuItems.push(
+      {
+        path: 'configuration',
+        title: 'Configuration',
+        icon: 'settings'
       }
     )
     // TODO Add in other devices if there is time:

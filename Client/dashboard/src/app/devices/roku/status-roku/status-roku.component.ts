@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RokuApiService } from 'src/app/api-services/roku/roku-api.service';
 import { RokuDevice } from 'src/app/api-services/roku/roku-device';
+import { NotificationSnackbarComponent } from 'src/app/misc-components/notification/notification-snackbar/notification-snackbar.component';
 
 @Component({
   selector: 'app-status-roku',
@@ -9,7 +11,7 @@ import { RokuDevice } from 'src/app/api-services/roku/roku-device';
 })
 export class StatusRokuComponent implements OnInit {
 
-  constructor(private rokuApi: RokuApiService) { }
+  constructor(private rokuApi: RokuApiService, private snackBar: MatSnackBar) { }
 
   rokuDevices: RokuDevice[] = []
 
@@ -24,6 +26,16 @@ export class StatusRokuComponent implements OnInit {
         data.forEach(element => {
           this.rokuDevices.push(this.createRokuDevice(element))
         })
+        this.snackBar.openFromComponent(NotificationSnackbarComponent, {
+          data: "Roku Device Information Update",
+          duration: 5000
+        });
+      },
+      error: (err: any) => {
+        this.snackBar.openFromComponent(NotificationSnackbarComponent, {
+          data: "Error With Roku Device Status:" + JSON.stringify(err),
+          duration: 15000
+        });
       }
     });
   }
@@ -38,6 +50,7 @@ export class StatusRokuComponent implements OnInit {
       data['friendly_name'],
       data['is_tv'],
       data['is_stick'],
+      data['channel'],
     );
 
     return device

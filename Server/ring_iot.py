@@ -29,19 +29,24 @@ class Ring_IOT:
     #     return auth_code
 
     def authenticate_ring_token(self):
-        if cache_file.is_file():
-            auth = Auth(self.user_agent, json.loads(cache_file.read_text()), self.token_updated)
-        else:
-            auth = Auth(self.user_agent, None, self.token_updated)
-            try:
-                auth.fetch_token(self.username, self.password)
-            except MissingTokenError:
-                auth.fetch_token(self.username, self.password, self.ring_auth_code)
+        try:
+            if cache_file.is_file():
+                auth = Auth(self.user_agent, json.loads(cache_file.read_text()), self.token_updated)
+            else:
+                auth = Auth(self.user_agent, None, self.token_updated)
+                try:
+                    auth.fetch_token(self.username, self.password)
+                except MissingTokenError:
+                    auth.fetch_token(self.username, self.password, self.ring_auth_code)
 
-        #Initialize the Python_Ring_API imported from ring_doorbell
-        self.ring = Ring(auth)
-        self.ring.update_data()
-        print("Successful Login to Ring system")
+            #Initialize the Python_Ring_API imported from ring_doorbell
+            self.ring = Ring(auth)
+            self.ring.update_data()
+            print("Successful Login to Ring system")
+        except Exception as e:
+            print("Exception Logging into to Ring system " + e)
+
+            return e
 
     def check_info_of_devices(self):
         self.devices = []

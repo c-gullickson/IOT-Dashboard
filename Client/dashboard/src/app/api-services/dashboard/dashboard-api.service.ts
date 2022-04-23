@@ -25,6 +25,10 @@ export class DashboardApiService {
     return this.http.get<any>('http://127.0.0.1:5000/dashboard/initialize_roku');
   }
 
+  initializeLights(): Observable<any> {
+    return this.http.get<any>('http://127.0.0.1:5000/dashboard/initialize_sengled');
+  }
+
   initializeProcessor(): Observable<any> {
     return this.http.get<any>('http://127.0.0.1:5000/dashboard/initialize_processor');
   }
@@ -35,6 +39,10 @@ export class DashboardApiService {
 
   rokuIntializedStatus(): Observable<any> {
     return this.http.get<any>('http://127.0.0.1:5000/dashboard/roku_enabled');
+  }
+
+  lightIntializedStatus(): Observable<any> {
+    return this.http.get<any>('http://127.0.0.1:5000/dashboard/sengled_enabled');
   }
 
   processorIntializedStatus(): Observable<any> {

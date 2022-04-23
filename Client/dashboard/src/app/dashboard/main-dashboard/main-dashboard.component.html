@@ -2,13 +2,15 @@
     <mat-card-title>IOT Dashboard Application</mat-card-title>
     <mat-card-subtitle>Application Overview</mat-card-subtitle>
 
-    <mat-card-actions align="end">
-        <a routerLink="/navigation/configuration"><button mat-button>Configuration</button></a>
-    </mat-card-actions>
-    
-    <mat-card-content>
-        <app-main-roku></app-main-roku>
-        <app-main-ring></app-main-ring>
-        <app-main-fitbit></app-main-fitbit>
+    <mat-card-content *ngIf="isConfiguration == false">
+        <app-main-roku *ngIf="isRoku == true"></app-main-roku>
+        <app-main-ring *ngIf="isRing == true"></app-main-ring>
+        <app-main-lights *ngIf="isLights == true"></app-main-lights>
     </mat-card-content>
-  </mat-card>
+
+    <mat-card-content *ngIf="isConfiguration == true">
+        <p>There are no current devices active on the server.
+            Please go to the Configuration page to initialize components.
+        </p>
+    </mat-card-content>
+</mat-card>

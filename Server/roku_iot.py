@@ -42,7 +42,12 @@ class Roku_IOT:
             response = xmltodict.parse(requests.request("GET", url, headers=headers, data=payload).text)
             json_data = json.loads(json.dumps(response))
 
-            device.state = json_data["player"]["@state"]      
+            device.state = json_data["player"]["@state"]
+            if device.state == "play" or device.state == "pause":
+                print(json_data)
+                device.channel = json_data["player"]["plugin"]["@name"]  
+            else: 
+                device.channel = "Unknown" 
 
         return [d.encoded_device() for d in self.devices]
 

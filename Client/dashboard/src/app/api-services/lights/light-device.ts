@@ -1,31 +1,31 @@
-export class RingDevice {
+export class LightDevice {
 
-    address: string;
-    family_name: string;
     device_id: string;
-    device_name: string;
-    timezone: Date;
-    wifi_rssi: number;
-    battery: number;
-    model: string;
+    category: string;
+    brightness: string;
+    color: string;
+    color_temperature: Date;
+    device_rssi: number;
+    device_name: number;
+    state: string;
 
     constructor(
-        address: string,
-        family_name: string,
         device_id: string,
-        device_name: string,
-        timezone: Date,
-        wifi_rssi: number,
-        battery: number,
-        model: string
+        category: string,
+        brightness: string,
+        color: string,
+        color_temperature: Date,
+        device_rssi: number,
+        device_name: number,
+        state: string
     ) { 
-        this.address = address;
-        this.family_name = family_name;
         this.device_id = device_id;
+        this.category = category;
+        this.brightness = brightness;
+        this.color = color;
+        this.color_temperature = color_temperature;
+        this.device_rssi = device_rssi;
         this.device_name = device_name;
-        this.timezone = timezone;
-        this.wifi_rssi = wifi_rssi;
-        this.battery = battery;
-        this.model = model
+        this.state = state
     }
   }

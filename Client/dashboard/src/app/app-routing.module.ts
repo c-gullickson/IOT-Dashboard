@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { LoginDashboardComponent } from './dashboard/login-dashboard/login-dashboard.component';
 import { MainDashboardComponent } from './dashboard/main-dashboard/main-dashboard.component';
+import { StatusLightsComponent } from './devices/lights/status-lights/status-lights.component';
 import { StatusRingComponent } from './devices/ring/status-ring/status-ring.component';
 import { StatusRokuComponent } from './devices/roku/status-roku/status-roku.component';
 import { NavigationComponent } from './navigation/navigation/navigation.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
       { path: 'configuration', component: LoginDashboardComponent },
       { path: 'roku/status', component: StatusRokuComponent },
       { path: 'ring/status', component: StatusRingComponent },
+      { path: 'lights/status', component: StatusLightsComponent },
     ]
   }
 ];

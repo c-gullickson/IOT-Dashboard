@@ -1,1 +1,23 @@
-<p>status-lights works!</p>
+<div>
+    <h1>Light Devices</h1>
+    <h2>Device Overview</h2>
+</div>
+<mat-card *ngFor="let device of lightDevices" style="display: inline-block;">
+    <mat-card-content>
+        <mat-card>
+            <mat-card-title>Sengled Device {{device.mapped_name}}</mat-card-title>
+            <mat-card-content>
+                <ul>
+                    <li>Device Name: {{device.device_name}}</li>
+                    <li>Device State: {{device.state}}</li>
+                    <li>Brightness: {{device.brightness}}</li>
+                    <li>Color: {{device.color}}</li>
+                    <li>Color Temperature: {{device.color_temperature}}</li>
+                    <li>Device RSSI: {{device.device_rssi}}</li>
+                    <li>Device Id: {{device.device_id}}</li>
+                    <li>Device Category: {{device.category}}</li>
+                </ul>
+            </mat-card-content>
+        </mat-card>
+    </mat-card-content>
+</mat-card>

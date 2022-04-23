@@ -2,9 +2,9 @@
     <h1>Ring Devices</h1>
     <h2>Device Overview</h2>
 </div>
-<mat-card *ngFor="let device of ringDevices">
+<mat-card *ngFor="let device of ringDevices" style="display: inline-block;">
     <mat-card-content>
-        <mat-card>
+        <mat-card class="device-card">
             <mat-card-title>Ring Device {{device.family_name}}</mat-card-title>
             <mat-card-content>
                 <ul>

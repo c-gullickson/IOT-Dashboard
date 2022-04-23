@@ -27,6 +27,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs'; 
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatSnackBarModule } from '@angular/material/snack-bar'; 
 
 import { AboutComponent } from './about/about.component';
 import { MainRokuComponent } from './devices/roku/main-roku/main-roku.component';
@@ -41,6 +42,7 @@ import { StatusRingComponent } from './devices/ring/status-ring/status-ring.comp
 import { LoginDashboardComponent } from './dashboard/login-dashboard/login-dashboard.component';
 import { ComponentDashboardComponent } from './dashboard/component-dashboard/component-dashboard.component';
 import { StatusLightsComponent } from './devices/lights/status-lights/status-lights.component';
+import { NotificationSnackbarComponent } from './misc-components/notification/notification-snackbar/notification-snackbar.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,8 @@ import { StatusLightsComponent } from './devices/lights/status-lights/status-lig
     StatusRingComponent,
     LoginDashboardComponent,
     ComponentDashboardComponent,
-    StatusLightsComponent
+    StatusLightsComponent,
+    NotificationSnackbarComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +87,8 @@ import { StatusLightsComponent } from './devices/lights/status-lights/status-lig
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
-    MatSlideToggleModule 
+    MatSlideToggleModule,
+    MatSnackBarModule
 
   ],
   providers: [],

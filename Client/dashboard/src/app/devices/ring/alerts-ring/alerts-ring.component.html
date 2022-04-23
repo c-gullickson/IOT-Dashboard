@@ -24,5 +24,7 @@
 
     </table>
     <button mat-button color="primary" (click)="getAlertUrl()">Alert Recording</button>
-
+    <div *ngIf="hasAlert == true">
+        <iframe [src]="recordingUrl" width="1200" height="800" ></iframe>
+    </div>
 </div>

@@ -1,8 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RokuDeviceConfig } from 'src/app/api-services/dashboard/config-roku-device';
 import { ConfigUpdateRequest } from 'src/app/api-services/dashboard/config-update';
 import { DashboardApiService } from 'src/app/api-services/dashboard/dashboard-api.service';
+import { NotificationSnackbarComponent } from 'src/app/misc-components/notification/notification-snackbar/notification-snackbar.component';
 
 @Component({
   selector: 'app-login-dashboard',
@@ -10,8 +12,9 @@ import { DashboardApiService } from 'src/app/api-services/dashboard/dashboard-ap
   styleUrls: ['./login-dashboard.component.css']
 })
 export class LoginDashboardComponent implements OnInit {
+  
 
-  constructor(private fb: FormBuilder, private dashboardApi: DashboardApiService) { }
+  constructor(private fb: FormBuilder, private dashboardApi: DashboardApiService, private snackBar: MatSnackBar) { }
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective | undefined;
   configForm = this.fb.group({
@@ -46,9 +49,12 @@ export class LoginDashboardComponent implements OnInit {
         console.log(this.configuration);
         this.populateFormControls();
       },
-      error: (err => {
-
-      })
+      error: (err: any) => {
+        this.snackBar.openFromComponent(NotificationSnackbarComponent, {
+          data: "Error Getting Config Values: " + err,
+          duration: 5000
+        });
+      }
     });
   }
 
@@ -117,7 +123,16 @@ export class LoginDashboardComponent implements OnInit {
 
     this.dashboardApi.updateDashboardConfig(configUpdate).subscribe({
       next: (data : any) => {
-        console.log("Dashboard Update: " + data)
+        this.snackBar.openFromComponent(NotificationSnackbarComponent, {
+          data: "Updated Dashboard Config Information ",
+          duration: 5000
+        });
+      },
+      error: (err: any) => {
+        this.snackBar.openFromComponent(NotificationSnackbarComponent, {
+          data: "Error Updating Dashboard Config Information: " + err,
+          duration: 5000
+        });
       }
     });
   }

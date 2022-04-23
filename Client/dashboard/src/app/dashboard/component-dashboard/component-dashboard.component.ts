@@ -13,6 +13,7 @@ export class ComponentDashboardComponent implements OnInit {
 
   isRoku : Boolean = false;
   isRing : Boolean = false;
+  isLights: Boolean = false;
   isProcessor : Boolean = false;
 
 
@@ -28,6 +29,13 @@ export class ComponentDashboardComponent implements OnInit {
       next: (data : any) => {
         this.isRing = data['initialize_ring'];
         console.log(this.isRing);
+      }
+    });
+
+    this.dashboardApi.lightIntializedStatus().subscribe({
+      next: (data : any) => {
+        this.isLights = data['initialize_sengled'];
+        console.log(this.isLights);
       }
     });
 
@@ -68,6 +76,22 @@ export class ComponentDashboardComponent implements OnInit {
       });
     }
   }
+
+  toggleLightChanges($event: MatSlideToggleChange){
+    if($event.checked == true) {
+      this.dashboardApi.initializeLights().subscribe({
+        next: (data : any) => {
+          console.log(data);
+          this.isLights = true;
+        },
+        error: (err) => {
+          this.isLights = false;
+          console.log(err);
+        }
+      });
+    }
+  }
+
   toggleProcessorChanges($event: MatSlideToggleChange){
     if($event.checked == true && (this.isRing == true && this.isRoku == true)) {
       this.dashboardApi.initializeProcessor().subscribe({

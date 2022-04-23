@@ -6,6 +6,7 @@ export class RokuDevice {
     friendly_name: string;
     is_tv: Boolean;
     is_stick: Boolean;
+    channel: string;
 
     constructor(
       mapped_name: string,
@@ -13,7 +14,8 @@ export class RokuDevice {
       state: string,
       friendly_name: string,
       is_tv: Boolean,
-      is_stick: Boolean
+      is_stick: Boolean,
+      channel: string
     ) { 
         this.mapped_name = mapped_name;
         this.ip_address = ip_address;
@@ -21,5 +23,6 @@ export class RokuDevice {
         this.friendly_name = friendly_name;
         this.is_tv = is_tv;
         this.is_stick = is_stick;
+        this.channel = channel;
     }
   }
