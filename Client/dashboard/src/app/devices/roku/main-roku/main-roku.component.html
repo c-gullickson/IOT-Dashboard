@@ -1,10 +1,9 @@
-<div>
-    <h1>Roku Devices</h1>
-    <h2>Device Overview</h2>
-</div>
-<mat-card *ngFor="let device of rokuDevices" style="display: inline-block;">
-    <mat-card-content>
-        <mat-card class="device-card">
+<mat-card class="overview-card">
+    <mat-card-title>Roku Devices</mat-card-title>
+    <mat-card-subtitle>Device Overview</mat-card-subtitle>
+
+    <mat-card *ngFor="let device of rokuDevices" style="display: inline-block;">
+        <mat-card-content class="device-card">
             <mat-card-title>Roku Device {{device.mapped_name}}</mat-card-title>
             <mat-card-content>
                 <ul>
@@ -12,10 +11,7 @@
                     <li>Current Channel: {{device.channel}}</li>
                     <li>IP Address: {{device.ip_address}}</li>
                 </ul>
-
-                <!-- Add in card actions to control? -->
             </mat-card-content>
-        </mat-card>
-
-    </mat-card-content>
+        </mat-card-content>
+    </mat-card>
 </mat-card>

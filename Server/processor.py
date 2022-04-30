@@ -2,9 +2,10 @@ from time import sleep
 from datetime import datetime, timezone, tzinfo
 
 class Processor:
-    def __init__(self, ring_iot, roku_iot):
+    def __init__(self, ring_iot, roku_iot, socketio):
         self.ring_iot = ring_iot
         self.roku_iot = roku_iot
+        self.socketio = socketio
     
     def processor_start(self):
         #Initialize a while loop to look for message alerts
@@ -33,6 +34,10 @@ class Processor:
                 else:
                     print("More than 45 second since motion")
                     print(str(time_difference.total_seconds()))
+                    self.socketio.emit('message', {'data': str(time_difference.total_seconds())})
 
             # Sleep before checking a set of events
+
             sleep(15)
+
+        

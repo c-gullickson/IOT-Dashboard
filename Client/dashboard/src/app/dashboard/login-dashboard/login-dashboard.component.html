@@ -1,76 +1,97 @@
-<app-component-dashboard></app-component-dashboard>
-
 <mat-card>
     <form [formGroup]="configForm" (ngSubmit)="onSubmit()" #formGroupDirective>
         <mat-card-content>
-            <table>
-                <tr>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Ring Username</mat-label>
-                        <input type="text" matInput formControlName="ringUsername">
-                    </mat-form-field>
-                </tr>
-                <tr>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Ring Password</mat-label>
-                        <input type="text" matInput formControlName="ringPassword">
-                    </mat-form-field>
-                </tr>
-                <tr>
-                    <mat-form-field appearance="fill" floatLabel="always">
-                        <mat-label>Ring User Agent</mat-label>
-                        <input matInput formControlName="ringUserAgent">
-                    </mat-form-field>
-                </tr>
-                <tr>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Ring Auth Code</mat-label>
-                        <input matInput formControlName="ringAuthCode">
 
-                    </mat-form-field>
-                </tr>
-                <tr>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Local Area Network</mat-label>
-                        <input type="text" matInput formControlName="lan">
-                    </mat-form-field>
-                </tr>
-            </table>
-
-            <div formArrayName="rokuDevices">
-                <ng-container *ngFor="let rokuDevice of rokuDevices.controls; let index = index">
-                    <div [formGroupName]="index">
-                        <mat-form-field appearance="fill">
-                            <input matInput formControlName="rokuDeviceLocation" placeholder="Device Location">
+            <mat-card>
+                <mat-card-content>
+                    <label>Local Area Network</label>
+                    <div>
+                        <mat-form-field appearance="fill" class="input">
+                            <mat-label>Local Area Network</mat-label>
+                            <input type="text" matInput formControlName="lan">
                         </mat-form-field>
-                        <mat-form-field appearance="fill">
-                            <input matInput formControlName="rokuDeviceIp" placeholder="Device IP">
-                        </mat-form-field>
-                        <button (click)="removeRokuDevice(index)">Remove</button>
                     </div>
-                </ng-container>
-            </div>
+                </mat-card-content>
+            </mat-card>
 
-            <table>
-                <tr>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Sengled Username</mat-label>
-                        <input type="text" matInput formControlName="sengledUsername">
-                    </mat-form-field>
-                </tr>
-                <tr>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Sengled Password</mat-label>
-                        <input type="text" matInput formControlName="sengledPassword">
-                    </mat-form-field>
-                </tr>
-            </table>
-            <p>
-                <button type="button" (click)="addRokuDevice('', '')">Add</button>
-            </p>
+            <mat-card>
+                <mat-card-content style="display: inline-block">
+                    <label>Roku Television</label>
+                    <div formArrayName="rokuDevices">
+                        <ng-container *ngFor="let rokuDevice of rokuDevices.controls; let index = index">
+                            <div [formGroupName]="index">
+                                <mat-form-field appearance="fill" class="input">
+                                    <input matInput formControlName="rokuDeviceLocation" placeholder="Device Location">
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" class="input">
+                                    <input matInput formControlName="rokuDeviceIp" placeholder="Device IP">
+                                </mat-form-field>
+
+                                <button (click)="removeRokuDevice(index)">Remove</button>
+
+                            </div>
+                        </ng-container>
+                        <p>
+                            <button type="button" (click)="addRokuDevice('', '')">Add</button>
+                        </p>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card>
+                <mat-card-content style="display: inline-table;">
+                    <label>Ring Doorbell</label>
+                    <table>
+                        <tr>
+                            <mat-form-field appearance="fill" class="input">
+                                <mat-label>Ring Username</mat-label>
+                                <input type="text" matInput formControlName="ringUsername">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill" class="input">
+                                <mat-label>Ring Password</mat-label>
+                                <input type="password" matInput formControlName="ringPassword">
+                            </mat-form-field>
+                        </tr>
+                        <tr>
+                            <mat-form-field appearance="fill" floatLabel="always" class="input">
+                                <mat-label>Ring User Agent</mat-label>
+                                <input matInput formControlName="ringUserAgent">
+                            </mat-form-field>
+                        </tr>
+                        <tr>
+                            <mat-form-field appearance="fill" class="input">
+                                <mat-label>Ring Auth Code</mat-label>
+                                <input matInput formControlName="ringAuthCode">
+
+                            </mat-form-field>
+                        </tr>
+                    </table>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card>
+                <mat-card-content>
+                    <label>Sengled Lights</label>
+                    <table>
+                        <tr>
+                            <mat-form-field appearance="fill" class="input">
+                                <mat-label>Sengled Username</mat-label>
+                                <input type="text" matInput formControlName="sengledUsername">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill" class="input">
+                                <mat-label>Sengled Password</mat-label>
+                                <input type="password" matInput formControlName="sengledPassword">
+                            </mat-form-field>
+                        </tr>
+                    </table>
+                </mat-card-content>
+            </mat-card>
         </mat-card-content>
         <mat-card-actions>
-            <button type="submit" [disabled]="!configForm.valid" mat-button>Update</button>
+            <button mat-raised-button type="submit" [disabled]="!configForm.valid" mat-button>Update
+                Configuration</button>
         </mat-card-actions>
     </form>
 </mat-card>

@@ -2,9 +2,10 @@ import sys
 import json
 from flask import Flask, request
 from flask_cors import CORS
+from flask_socketio import SocketIO
 from threading import Thread
-from sengled_iot import Sengled_IOT
 
+from sengled_iot import Sengled_IOT
 from ring_iot import Ring_IOT
 from roku_iot import Roku_IOT
 from processor import Processor
@@ -12,6 +13,8 @@ from config import Config
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret!'
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 def main():
 
@@ -21,7 +24,8 @@ def main():
     #Start Flask application
     if __name__ == "__main__":
         CORS(app)
-        app.run(debug=False)
+        #app.run(debug=False) Replaced by socketIO.run
+        socketio.run(app, host='0.0.0.0', port=5000)
 
 
 #Initialize device classes that also get used:
@@ -60,7 +64,7 @@ def initialize_sengled():
 def initialize_processor():
     if Config.initialize_ring == True and Config.initialize_roku == True:
         try: 
-            Processor.__init__(Processor, Ring_IOT, Roku_IOT)
+            Processor.__init__(Processor, Ring_IOT, Roku_IOT, socketio)
             thread = Thread(target = Processor.processor_start(Processor)).run()
             
         except Exception as e:
@@ -194,5 +198,10 @@ def dashboard_sengled():
 @app.route('/dashboard/processor_enabled')
 def dashboard_processor(): 
     return json.dumps(Config.get_init_processor_status(Config))   
+
+# @socketio.on('clientMessage')
+# def handle_message(data):
+#     print('received message from client: ' + str(data))
+#     socketio.emit('message', {'data': 42})
 
 main()

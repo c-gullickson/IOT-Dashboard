@@ -1,25 +1,19 @@
-<div>
-    <div>
-        <h1>Light Devices</h1>
-        <h2>Device Overview</h2>
-    </div>
+<mat-card class="overview-card">
+    <mat-card-title>Light Devices</mat-card-title>
+    <mat-card-subtitle>Device Overview</mat-card-subtitle>
+
     <mat-card *ngFor="let device of lightDevices" style="display: inline-block;">
-        <mat-card-content>
-            <mat-card class="device-card">
-                <mat-card-title>Light Device {{device.device_name}}</mat-card-title>
-                <mat-card-content>
-                    <ul>
-                        <li>Device Color: {{device.color}}</li>
-                        <li>Device Temperature: {{device.color_temperature}}</li>
-                        <li>Device Brightness: {{device.brightness}}</li>
-    
-                        <li>Device State: {{device.state}}</li>
-                    </ul>
-    
-                    <!-- Add in card actions to control? -->
-                </mat-card-content>
-            </mat-card>
-    
+        <mat-card-content class="device-card">
+            <mat-card-title>Light Device {{device.device_name}}</mat-card-title>
+            <mat-card-content>
+                <mat-icon matListIcon [ngStyle]="{'color': device.color}" style="float: right; transform: scale(2);">lightbulb</mat-icon>
+                <ul>
+                    <li>Device Color: {{device.color}}</li>
+                    <li>Device Temperature: {{device.color_temperature}}</li>
+                    <li>Device Brightness: {{device.brightness}}</li>
+                    <li>Device State: {{device.state}}</li>
+                </ul>
+            </mat-card-content>
         </mat-card-content>
     </mat-card>
-</div>
+</mat-card>

@@ -13,15 +13,12 @@ export class MainDashboardComponent implements OnInit {
 
   constructor(private dashboardApi: DashboardApiService, private snackBar: MatSnackBar) { }
 
-  
   isRoku: Boolean = false;
   isRing: Boolean = false;
   isLights: Boolean = false;
   isConfiguration: Boolean = true
 
   ngOnInit(): void {
-    console.log("Dashboard Init")
-
     this.dashboardApi.rokuIntializedStatus().subscribe({
       next: (data: any) => {
         this.isRoku = data['initialize_roku'];
@@ -62,5 +59,10 @@ export class MainDashboardComponent implements OnInit {
     });
   }
 
-
+  displayMessage(message: string) {
+    this.snackBar.openFromComponent(NotificationSnackbarComponent, {
+      data: "New Event Populated: " + JSON.stringify(message),
+      duration: 5000
+    });
+  }
 }

@@ -1,9 +1,11 @@
-<p>Control true / false for initializing other devices</p>
+<mat-card>
+    <mat-card-title>Initialize IOT devices with the dashboard.</mat-card-title>
+    <mat-card-subtitle>Enabling a set of devices will initialize the API on the server.</mat-card-subtitle>
 
-<mat-slide-toggle [(ngModel)]="isRoku" (change)="toggleRokuChanges($event)">Initialize Roku Devices</mat-slide-toggle>
-<mat-slide-toggle [(ngModel)]="isRing" (change)="toggleRingChanges($event)">Initialize Ring Devices</mat-slide-toggle>
-<mat-slide-toggle [(ngModel)]="isLights" (change)="toggleLightChanges($event)">Initialize Lights Devices</mat-slide-toggle>
+    <mat-slide-toggle [(ngModel)]="isRoku" (change)="toggleRokuChanges($event)">Initialize Roku Devices</mat-slide-toggle>
+    <mat-slide-toggle [(ngModel)]="isRing" (change)="toggleRingChanges($event)">Initialize Ring Devices</mat-slide-toggle>
+    <mat-slide-toggle [(ngModel)]="isLights" (change)="toggleLightChanges($event)">Initialize Lights Devices</mat-slide-toggle>
+    <mat-slide-toggle [(ngModel)]="isProcessor" (change)="toggleProcessorChanges($event)">Initialize Data Processor</mat-slide-toggle>
+</mat-card>
 
-<mat-slide-toggle [(ngModel)]="isProcessor" (change)="toggleProcessorChanges($event)">Initialize Data Processor</mat-slide-toggle>
 
-<!-- Put in notification box incase of an error? -->

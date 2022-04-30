@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { DashboardApiService } from 'src/app/api-services/dashboard/dashboard-api.service';
+import { WebsocketConnectionService } from 'src/app/api-services/websocket/websocket-connection.service';
 
 @Component({
   selector: 'app-component-dashboard',
@@ -9,40 +10,45 @@ import { DashboardApiService } from 'src/app/api-services/dashboard/dashboard-ap
 })
 export class ComponentDashboardComponent implements OnInit {
 
-  constructor(private dashboardApi: DashboardApiService) { }
+  @Output() websocketMessageEvent = new EventEmitter<string>();
+
+  constructor(private dashboardApi: DashboardApiService, private websocketApi: WebsocketConnectionService) { }
 
   isRoku : Boolean = false;
   isRing : Boolean = false;
   isLights: Boolean = false;
   isProcessor : Boolean = false;
-
+  websocketSubscription: any = null;
 
   ngOnInit(): void {
+
+    if (this.websocketSubscription == undefined){
+      this.websocketSubscription = this.websocketApi.receiveMessage().subscribe((message: string) => {
+        this.websocketMessageEvent.emit(message['data']);
+      });
+    }
+
     this.dashboardApi.rokuIntializedStatus().subscribe({
       next: (data : any) => {
         this.isRoku = data['initialize_roku'];
-        console.log(this.isRoku);
       }
     });
 
     this.dashboardApi.ringIntializedStatus().subscribe({
       next: (data : any) => {
         this.isRing = data['initialize_ring'];
-        console.log(this.isRing);
       }
     });
 
     this.dashboardApi.lightIntializedStatus().subscribe({
       next: (data : any) => {
         this.isLights = data['initialize_sengled'];
-        console.log(this.isLights);
       }
     });
 
     this.dashboardApi.processorIntializedStatus().subscribe({
       next: (data : any) => {
         this.isProcessor = data['initialize_processor'];
-        console.log(this.isProcessor);
       }
     });
   }
@@ -50,13 +56,12 @@ export class ComponentDashboardComponent implements OnInit {
   toggleRokuChanges($event: MatSlideToggleChange){
     if($event.checked == true) {
       this.dashboardApi.initializeRoku().subscribe({
-        next: (data : any) => {
-          console.log(data);
+        next: () => {
           this.isRoku = true;
+          window.location.reload();
         },
-        error: (err) => {
+        error: () => {
           this.isRoku = false;
-          console.log(err);
         }
       });
     }
@@ -65,13 +70,12 @@ export class ComponentDashboardComponent implements OnInit {
   toggleRingChanges($event: MatSlideToggleChange){
     if($event.checked == true) {
       this.dashboardApi.initializeRing().subscribe({
-        next: (data : any) => {
-          console.log(data);
+        next: () => {
           this.isRing = true;
+          window.location.reload();
         },
-        error: (err) => {
+        error: () => {
           this.isRing = false;
-          console.log(err);
         }
       });
     }
@@ -80,13 +84,12 @@ export class ComponentDashboardComponent implements OnInit {
   toggleLightChanges($event: MatSlideToggleChange){
     if($event.checked == true) {
       this.dashboardApi.initializeLights().subscribe({
-        next: (data : any) => {
-          console.log(data);
+        next: () => {
           this.isLights = true;
+          window.location.reload();
         },
-        error: (err) => {
+        error: () => {
           this.isLights = false;
-          console.log(err);
         }
       });
     }
@@ -95,12 +98,12 @@ export class ComponentDashboardComponent implements OnInit {
   toggleProcessorChanges($event: MatSlideToggleChange){
     if($event.checked == true && (this.isRing == true && this.isRoku == true)) {
       this.dashboardApi.initializeProcessor().subscribe({
-        next: (data : any) => {
-          console.log(data);
+        next: () => {
           this.isProcessor = true;
+          window.location.reload();
         },
-        error: (err) => {
-          console.log(err);
+        error: () => {
+          this.isProcessor = false;
         }
       });
     }

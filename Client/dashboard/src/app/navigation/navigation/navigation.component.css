@@ -3,7 +3,7 @@
   }
 
   .sidenav-container {
-    height: 100%;
+    height: auto;
   }
   
   .sidenav-drawer {
@@ -13,11 +13,12 @@
   }
 
   .sidenav-content {
-    display: flex;
+    display: block;
     justify-content: space-between;
     flex-direction: column;
     height: 100%;
   }
+  
   .list-item-active {
     font-weight: bold;
     color: lightblue;

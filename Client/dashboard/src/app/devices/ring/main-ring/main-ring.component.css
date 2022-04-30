@@ -1,3 +1,7 @@
 .device-card{
     width: 350px;
 }
+
+.overview-card{
+    background-color: lightblue; 
+}

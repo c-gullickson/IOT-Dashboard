@@ -1,12 +1,11 @@
-<div>
-    <h1>Roku Devices</h1>
-    <h2>Device Overview</h2>
-</div>
-<mat-card *ngFor="let device of rokuDevices">
-    <mat-card-content>
-        <mat-card>
-            <mat-card-title>Roku Device {{device.mapped_name}}</mat-card-title>
-            <mat-card-content>
+<mat-card class="overview-card">
+    <mat-card-title>Roku Devices</mat-card-title>
+    <mat-card-subtitle>Device Overview</mat-card-subtitle>
+
+    <mat-card *ngFor="let device of rokuDevices">
+        <mat-card-content>
+            <mat-card-title>Roku Device {{device.friendly_name}}</mat-card-title>
+            <mat-card-content class="device-card">
                 <ul>
                     <li>Friendly Name: {{device.friendly_name}}</li>
                     <li>Current Channel: {{device.channel}}</li>
@@ -21,6 +20,6 @@
             <mat-card-actions>
                 <app-key-inputs-roku [ip_address]=device.ip_address></app-key-inputs-roku>
             </mat-card-actions>
-        </mat-card>
-    </mat-card-content>
+        </mat-card-content>
+    </mat-card>
 </mat-card>

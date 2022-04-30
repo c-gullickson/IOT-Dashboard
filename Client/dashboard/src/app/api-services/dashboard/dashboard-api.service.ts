@@ -1,52 +1,54 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardApiService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+   }
 
   getDashboardConfig(): Observable<any> {
-    return this.http.get<any>('http://127.0.0.1:5000/dashboard/config');
+    return this.http.get<any>( environment.API_URL + '/dashboard/config');
   }
 
   updateDashboardConfig(requestBody): Observable<any>{
-    return this.http.post<any>('http://127.0.0.1:5000/dashboard/config/update', requestBody);
+    return this.http.post<any>(environment.API_URL + '/dashboard/config/update', requestBody);
   }
 
   initializeRing(): Observable<any> {
-    return this.http.get<any>('http://127.0.0.1:5000/dashboard/initialize_ring');
+    return this.http.get<any>(environment.API_URL + '/dashboard/initialize_ring');
   }
 
   initializeRoku(): Observable<any> {
-    return this.http.get<any>('http://127.0.0.1:5000/dashboard/initialize_roku');
+    return this.http.get<any>(environment.API_URL + '/dashboard/initialize_roku');
   }
 
   initializeLights(): Observable<any> {
-    return this.http.get<any>('http://127.0.0.1:5000/dashboard/initialize_sengled');
+    return this.http.get<any>(environment.API_URL + '/dashboard/initialize_sengled');
   }
 
   initializeProcessor(): Observable<any> {
-    return this.http.get<any>('http://127.0.0.1:5000/dashboard/initialize_processor');
+    return this.http.get<any>(environment.API_URL + '/dashboard/initialize_processor');
   }
 
   ringIntializedStatus(): Observable<any> {
-    return this.http.get<any>('http://127.0.0.1:5000/dashboard/ring_enabled');
+    return this.http.get<any>(environment.API_URL + '/dashboard/ring_enabled');
   }
 
   rokuIntializedStatus(): Observable<any> {
-    return this.http.get<any>('http://127.0.0.1:5000/dashboard/roku_enabled');
+    return this.http.get<any>(environment.API_URL + '/dashboard/roku_enabled');
   }
 
   lightIntializedStatus(): Observable<any> {
-    return this.http.get<any>('http://127.0.0.1:5000/dashboard/sengled_enabled');
+    return this.http.get<any>(environment.API_URL + '/dashboard/sengled_enabled');
   }
 
   processorIntializedStatus(): Observable<any> {
-    return this.http.get<any>('http://127.0.0.1:5000/dashboard/processor_enabled');
+    return this.http.get<any>(environment.API_URL + '/dashboard/processor_enabled');
   }
 
 }

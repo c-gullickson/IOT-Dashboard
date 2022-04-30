@@ -14,6 +14,7 @@ export class StatusLightsComponent implements OnInit {
   constructor(private lightApi: LightsApiService, private snackBar: MatSnackBar) { }
 
   lightDevices: LightDevice[] = []
+  lightColor: string = 'rgb(255,0,0)'
 
   ngOnInit(): void {
     console.log("Main Light Start")
@@ -40,18 +41,26 @@ export class StatusLightsComponent implements OnInit {
   }
 
   createLightDevice(data: any): LightDevice {
-    console.log(data)
+
+    var state = 'Off';
+    if (data['state'] == 0){
+      state = 'Off';
+    }
+    else if (data['state'] == 1){
+      state = 'On';
+    }
+    this.lightColor = 'rgb(' + data['color'].replaceAll(':', ',') + ')';
 
     let device = new LightDevice(
       data['device_id'],
       data['category'],
       data['brightness'],
-      data['color'],
+      this.lightColor,
       data['color_temperature'],
       data['device_rssi'],
       data['device_name'],
-      data['state'],
-    );
+      state,
+      );
     
     return device
   }

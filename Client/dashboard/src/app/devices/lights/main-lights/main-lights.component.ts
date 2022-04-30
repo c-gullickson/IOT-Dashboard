@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { stringify } from 'querystring';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { DashboardApiService } from 'src/app/api-services/dashboard/dashboard-api.service';
 import { LightDevice } from 'src/app/api-services/lights/light-device';
 import { LightsApiService } from 'src/app/api-services/lights/lights-api.service';
@@ -13,8 +15,9 @@ import { NotificationSnackbarComponent } from 'src/app/misc-components/notificat
 export class MainLightsComponent implements OnInit {
 
   constructor(private lightApi: LightsApiService, private dashboardApi: DashboardApiService, private snackBar: MatSnackBar) { }
-
+  
   lightDevices: LightDevice[] = []
+  lightColor: string = 'rgb(255,0,0)'
   isLightsInit: Boolean;
 
   ngOnInit(): void {
@@ -61,17 +64,26 @@ export class MainLightsComponent implements OnInit {
   }
 
   createLightDevice(data: any): LightDevice {
+    var state = 'Off';
+    if (data['state'] == 0){
+      state = 'Off';
+    }
+    else if (data['state'] == 1){
+      state = 'On';
+    }
+    this.lightColor = 'rgb(' + data['color'].replaceAll(':', ',') + ')';
     let device = new LightDevice(
       data['device_id'],
       data['category'],
       data['brightness'],
-      data['color'],
+      this.lightColor,
       data['color_temperature'],
       data['device_rssi'],
       data['device_name'],
-      data['state'],
+      state,
     );
 
+    console.log("Device Color: " + this.lightColor)
     return device
   }
 }

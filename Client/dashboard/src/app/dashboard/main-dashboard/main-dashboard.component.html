@@ -1,7 +1,7 @@
 <mat-card>
     <mat-card-title>IOT Dashboard Application</mat-card-title>
-    <mat-card-subtitle>Application Overview</mat-card-subtitle>
 
+    <app-component-dashboard (websocketMessageEvent)="displayMessage($event)"></app-component-dashboard>
     <mat-card-content *ngIf="isConfiguration == false">
         <app-main-roku *ngIf="isRoku == true"></app-main-roku>
         <app-main-ring *ngIf="isRing == true"></app-main-ring>
