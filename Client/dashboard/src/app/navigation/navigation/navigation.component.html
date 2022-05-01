@@ -14,8 +14,11 @@
             <button mat-icon-button (click)="drawer.toggle()">
                 <mat-icon>menu</mat-icon>
             </button>
+
+            
             <span>Dashboard Viewer</span>
             <span class="toolbar-spacer"></span>
+            <button mat-button (click)="refreshButton()">Dashboard Refresh</button> <mat-icon>refresh</mat-icon>
             <a routerLink="/navigation/configuration"><button mat-button>Configuration</button> <mat-icon>settings</mat-icon></a>
 
         </mat-toolbar>

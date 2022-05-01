@@ -1,1 +1,1 @@
-{"ring_username": "@outlook.com", "ring_password": "!", "ring_useragent": "cgullickson/1.0", "roku_devices": [{"device_location": "main_floor", "device_ip": "192.168.10.174"}], "lan": "192.168.10.0/24", "ring_auth_code": "344923", "sengled_username": "@outlook.com", "sengled_password": "!"}
+{"ring_username": "", "ring_password": "", "ring_useragent": "cgullickson/1.0", "roku_devices": [{"device_location": "main_floor", "device_ip": "192.168.10.174"}], "lan": "192.168.10.0/24", "ring_auth_code": "344923", "sengled_username": "", "sengled_password": "!"}

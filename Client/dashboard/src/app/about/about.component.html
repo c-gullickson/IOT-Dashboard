@@ -3,20 +3,27 @@
     <mat-card-subtitle>Application Overview</mat-card-subtitle>
     <mat-card-content>
         <p>
-            This applicaiton is for the NDSU course CSCI 846 (Distributed Systems). It demonstrates the ability of distributed applications by integrating with IOT devices.
+            This applicaiton is for the NDSU course CSCI 846 (Distributed Systems). It demonstrates the ability of distributed applications through the integrating with IOT devices.
         </p>
             <ul>
-                <label>IOT Devices</label>
+                <label>IOT Devices utilized:</label>
                 <li>Ring Doorbell</li>
                 <li>Roku Television</li>
-                <li>Fitbit Watch</li>
-                <li>Smart Lights</li>
-                <li>Weather App</li>
+                <li>Sengled Smart Lightbulbs</li>
+            </ul>
+
+            <ul>
+                <label>Future Implementations:</label>
+                <li>FitBit</li>
+                <li>Weather API</li>
             </ul>
         <p>
-            The purpose of this application is to manage tasks for a group of users. Tasks can be added to a backlog of total tasks, assigned, and completed. 
-            Once a task has been completed, it assignes a monetary value to the user whom completed the task. There is also a feature for the user to view that monetary amount,
-            and perform purchases (withdrawls) against that value, overall keeping a running tab of events.
+            With IOT devices as the initial scope for this project, the functionality of this application is to collect inputs from various devices that have self contained sensors, and manipulate the outputs of other devices.
+            Within this application, the primary sensor / data source input is the Ring doorbell. As it has an embedded camera, and event triggering button, it is capable of being "aware" of when motion occurs or events are triggered.
+            Based on these "sensor" inputs, other devices are manipulated. The working case for this application is based around the Roku television, and it's ability to be programatically manipulated.
+            When the server application is invoked by the Ring doorbell, it decides how to manipulate the Roku and client application. If the Ring has a "motion" alert, then a message is pushed to the client, 
+            but if a "ding" event is triggered, then the Roku television is paused if it is currently in a "play" state. The additional display of output manipulation was supposed to be through the control of smart lightbulbs, however, 
+            the lightbulb brand chosen did not have a dedicated API for updating funcitons. However, the lightbulb devices on the network can still be queried for status data.
         </p>
     </mat-card-content>
   </mat-card>

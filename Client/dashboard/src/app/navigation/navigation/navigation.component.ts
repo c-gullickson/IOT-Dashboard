@@ -67,4 +67,8 @@ export class NavigationComponent implements OnInit {
     )
     // TODO Add in other devices if there is time:
   }
+
+  refreshButton(){
+    window.location.reload();
+  }
 }

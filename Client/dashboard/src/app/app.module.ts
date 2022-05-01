@@ -43,6 +43,7 @@ import { LoginDashboardComponent } from './dashboard/login-dashboard/login-dashb
 import { ComponentDashboardComponent } from './dashboard/component-dashboard/component-dashboard.component';
 import { StatusLightsComponent } from './devices/lights/status-lights/status-lights.component';
 import { NotificationSnackbarComponent } from './misc-components/notification/notification-snackbar/notification-snackbar.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,9 @@ import { NotificationSnackbarComponent } from './misc-components/notification/no
     MatSnackBarModule
 
   ],
-  providers: [],
+  providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

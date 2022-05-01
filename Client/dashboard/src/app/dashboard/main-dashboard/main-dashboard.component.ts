@@ -61,7 +61,7 @@ export class MainDashboardComponent implements OnInit {
 
   displayMessage(message: string) {
     this.snackBar.openFromComponent(NotificationSnackbarComponent, {
-      data: "New Event Populated: " + JSON.stringify(message),
+      data: "New Processor Event: " + JSON.stringify(message),
       duration: 5000
     });
   }
